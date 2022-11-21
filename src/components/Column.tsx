@@ -7,10 +7,11 @@ import Card from "./Card"
 
 interface ColumnProps{
     text:string,
-    index:number
+    index:number,
+    id:string
   }
-const Column = ({text,index}:ColumnProps) => {
-  const { state } = useAppState()
+const Column = ({text,index,id}:ColumnProps) => {
+  const { state ,dispatch} = useAppState()
 
   return (
     <ColumnContainer>
@@ -19,7 +20,9 @@ const Column = ({text,index}:ColumnProps) => {
 <Card text={task.text} key={task.id} />
 ))}
     <AddNewItem toggleButtonText="+ Add another task"
-onAdd={console.log}
+onAdd={text =>
+  dispatch({ type: "ADD_TASK", payload: { text, taskId: id } })
+}  
 dark
 />
     </ColumnContainer>
